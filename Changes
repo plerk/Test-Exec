@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.02      2015-12-13 12:47:56 -0500
   - Fixed uncaptured exec
 
 0.01      2015-12-13 04:38:55 -0500
