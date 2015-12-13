@@ -29,7 +29,7 @@ The concept was implementation was based on L<Test::Exit>, but applied to C<exec
 our @EXPORT = qw( exec_arrayref );
 
 our $exec_handler = sub {
-  goto \&CORE::exec;
+  CORE::exec(@_);
 };
 BEGIN {
   *CORE::GLOBAL::exec = sub { $exec_handler->(@_) };
