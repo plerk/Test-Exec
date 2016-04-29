@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.02_01   2016-04-29 11:42:24 -0400
+  - Added some optional Test2 tests
+
 0.02      2015-12-13 12:47:56 -0500
   - Fixed uncaptured exec
 
