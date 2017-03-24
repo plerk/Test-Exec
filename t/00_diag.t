@@ -12,6 +12,7 @@ my $post_diag;
 $modules{$_} = $_ for qw(
   ExtUtils::MakeMaker
   Return::MultiLevel
+  Test2::Suite
   Test::More
 );
 
