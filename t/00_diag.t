@@ -13,7 +13,6 @@ $modules{$_} = $_ for qw(
   ExtUtils::MakeMaker
   Return::MultiLevel
   Test2::API
-  Test2::Bundle::Extended
   Test2::V0
 );
 
