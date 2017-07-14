@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.04      2017-07-14 10:48:01 -0400
   - Added never_exec_ok function
 
 0.03      2017-03-24 10:19:07 -0400
