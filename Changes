@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Added never_exec_ok function
 
 0.03      2017-03-24 10:19:07 -0400
   - largely the same as 0.02_01, except Test2 tests are no longer optional

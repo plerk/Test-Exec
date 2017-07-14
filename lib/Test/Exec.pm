@@ -2,6 +2,7 @@ package Test::Exec;
 
 use strict;
 use warnings;
+use Test2::API qw( context );
 use Return::MultiLevel qw( with_return );
 use base 'Exporter';
 
@@ -26,7 +27,7 @@ The concept was implementation was based on L<Test::Exit>, but applied to C<exec
 
 =cut
 
-our @EXPORT = qw( exec_arrayref );
+our @EXPORT = qw( exec_arrayref never_exec_ok );
 
 our $exec_handler = sub {
   CORE::exec(@_);
@@ -46,15 +47,53 @@ arguments.  If the code never calls C<exec>, it will return C<undef>.
 
 =cut
 
+my $last;
+
 sub exec_arrayref(&)
 {
   my($code) = @_;
+  
+  undef $last;
+  
   return with_return {
     my($return) = @_;
-    local $exec_handler = sub { $return->([@_]) };
+    local $exec_handler = sub {
+      $last = [caller(1)];
+      $return->([@_]);
+    };
     $code->();
     undef;
   };
+}
+
+=head2 never_exec_ok
+
+ never_exec_ok { ... }
+
+Runs the given code.  If the code calls C<exec>, then the test will fail (but exec will be intercepted
+and not performed).
+
+=cut
+
+sub never_exec_ok (&;$)
+{
+  my($code, $name) = @_;
+  
+  $name ||= 'does not call exec';
+  
+  my $ret = exec_arrayref { $code->() };
+  my $ok = !defined $ret;
+  
+  my $ctx = context();
+  $ctx->ok($ok, $name);
+  
+  if(!$ok && $last)
+  {
+    my($package, $filename, $line) = @$last;
+    $ctx->diag("exec at $filename line $line");
+  }
+  
+  $ctx->release;
 }
 
 1;
