@@ -27,6 +27,13 @@ The concept was implementation was based on [Test::Exit](https://metacpan.org/po
 runs the given code.  If the code calls `exec`, then this function will return an arrayref with its
 arguments.  If the code never calls `exec`, it will return `undef`.
 
+## never\_exec\_ok
+
+    never_exec_ok { ... }
+
+Runs the given code.  If the code calls `exec`, then the test will fail (but exec will be intercepted
+and not performed).
+
 # CAVEATS
 
 This module installs its own version of `exec` in `CORE::GLOBAL::exec`,
